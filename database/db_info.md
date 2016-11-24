@@ -40,7 +40,32 @@ values
   (
     'academia',
     'institution',
-    '{"fields": ["mlk", "mlk2"]}'::jsonb
+    '{
+      "info": [
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "surename",
+          "type": "text"
+        },
+        {
+          "name": "work",
+          "type": "text"
+        }
+      ],
+      "media": {
+        "picture": [],
+        "audio": [],
+        "video": [],
+        "text": [],
+      }
+    }'::jsonb
   ),
   (
     'the bar',
