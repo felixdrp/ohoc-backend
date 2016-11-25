@@ -4,7 +4,7 @@ var templateList = require('./template-list').default;
 var createRecord = require('./create-record').default;
 var getAllRecords = require('./get-all-records').default;
 var getRecordsByType = require('./get-records-by-type').default;
-
+var getRecordData = require('./get-record-data').default;
 
 
 const dbDriver = {

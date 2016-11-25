@@ -22,7 +22,7 @@ export default function getRecordsByType(dbPool, type) {
               console.error( errorMessage );
             }
 
-            console.log(result)
+            // console.log(result)
             // return the new recordId
             resolve( result.rows )
         });

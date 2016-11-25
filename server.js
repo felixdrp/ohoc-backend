@@ -10,6 +10,8 @@ var app = express();
 
 app.use(bodyParser.json())
 
+app.use(express.static('public'))
+
 app.get('/', (req, res) => {
   res.writeHead(200, {'content-type': 'text/html'});
   res.end(
@@ -103,7 +105,6 @@ app.route('/api/record/create')
 
 // curl -v -X GET http://localhost:3001/api/templates/list
 
-app.use(express.static('public'))
 
 app.route('/api/templates/list')
   .get( async (req, res) => {
