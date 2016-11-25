@@ -101,6 +101,18 @@ app.route('/api/record/create')
   //   );
   // })
 
+// curl -v -X GET http://localhost:3001/api/templates/list
+
+app.use(express.static('public'))
+
+app.route('/api/templates/list')
+  .get( async (req, res) => {
+    let templateList = await dbDriver.templateList()
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({templateList}) );
+  })
+
 app.route('/api/record/upload/:recordId')
   .put(async (req, res) => {
     try {
