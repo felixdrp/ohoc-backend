@@ -38,21 +38,90 @@ insert into
   public.templates
 values
   (
-    'interview',
-    'submlk',
-    '{"fields": ["mlk", "supermlk"]}'::jsonb
+    'academia',
+    'institution',
+    '{
+      "info": [
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "surename",
+          "type": "text"
+        },
+        {
+          "name": "work",
+          "type": "text"
+        }
+      ],
+      "media": {
+        "picture": [],
+        "audio": [],
+        "video": [],
+        "text": [],
+      }
+    }'::jsonb
   ),
   (
-    'book',
-    'science fiction',
-    '{"fields": ["mlk", "supermlk"]}'::jsonb
+    'the bar',
+    'place',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
   ),
   (
-    'memories',
-    'economics',
-    '{"fields": ["mlk", "supermlk"]}'::jsonb
+    'civil service',
+    'institution',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'solicitors and agents',
+    'institution',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'policy formation',
+    'campaign',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'policy formation',
+    'committe',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'policy formation',
+    'groups and associations',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'publications',
+    'law report',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'publications',
+    'magazine',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'publications',
+    'textbook',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'publications',
+    'treatise',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
+  ),
+  (
+    'publications',
+    'EIPR',
+    '{"fields": ["mlk", "mlk2"]}'::jsonb
   )
-
 
 
 insert into public.data (type, subtype, data) values ('Interview','submlk','{"hello": ["mlk", "supermlk"]}')
