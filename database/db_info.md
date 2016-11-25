@@ -41,29 +41,28 @@ values
     'academia',
     'institution',
     '{
-      "info": [
+      "fields": [
         {
           "name": "name",
-          "type": "text"
+          "type": "text",
+          "data": "City University"
         },
         {
           "name": "title",
-          "type": "text"
-        },
-        {
-          "name": "surename",
-          "type": "text"
+          "type": "text",
+          "data": "City University"
         },
         {
           "name": "work",
-          "type": "text"
+          "type": "text",
+          "data": "Some info about City University"
         }
       ],
       "media": {
         "picture": [],
         "audio": [],
         "video": [],
-        "text": [],
+        "text": []
       }
     }'::jsonb
   ),
@@ -124,7 +123,38 @@ values
   )
 
 
-insert into public.data (type, subtype, data) values ('Interview','submlk','{"hello": ["mlk", "supermlk"]}')
+insert into public.data (type, subtype, data) values (
+    'academia',
+    'institution',
+    '{
+      "fields": [
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "surename",
+          "type": "text"
+        },
+        {
+          "name": "work",
+          "type": "text"
+        }
+      ],
+      "media": {
+        "picture": [],
+        "audio": [],
+        "video": [],
+        "text": [],
+      }
+    }'::jsonb
+  )
+
+
 
 # Read tables
 

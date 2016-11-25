@@ -21,6 +21,48 @@ app.get('/', (req, res) => {
   );
 });
 
+// Get the All record list
+// curl -v -X GET http://localhost:3001/api/getAllRecords
+app.route('/api/getAllRecords')
+  .get( async (req, res) => {
+    let recordsAllList = await dbDriver.getAllRecords()
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({recordsAllList}) );
+  })
+
+// Get the record list by type
+// curl -v -X GET http://localhost:3001/api/getRecordsByType/academia
+app.route('/api/getRecordsByType/:type')
+  .get( async (req, res) => {
+    // console.log(req)
+    let recordsByType = await dbDriver.getRecordsByType(req.params.type)
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({recordsByType}) );
+  })
+
+// Get record by recordId
+// curl -v -X GET http://localhost:3001/api/getRecord/24
+app.route('/api/getRecord/:recordId')
+  .get( async (req, res) => {
+    // console.log(req)
+    let recordById = await dbDriver.getRecordData(req.params.recordId)
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({recordById}) );
+  })
+
+// Get the template list
+// curl -v -X GET http://localhost:3001/api/templates/list
+app.route('/api/templates/list')
+  .get( async (req, res) => {
+    let templateList = await dbDriver.templateList()
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({templateList}) );
+  })
+
 // Create a new record.
 app.route('/api/record/create')
   .put( async (req, res) => {
@@ -58,15 +100,6 @@ app.route('/api/record/create')
   //     `
   //   );
   // })
-
-// curl -v -X GET http://localhost:3001/api/templates/list
-app.route('/api/templates/list')
-  .get( async (req, res) => {
-    let templateList = await dbDriver.templateList()
-
-    res.writeHead(200, {'content-type': 'application/json'});
-    res.end( JSON.stringify({templateList}) );
-  })
 
 app.route('/api/record/upload/:recordId')
   .put(async (req, res) => {
