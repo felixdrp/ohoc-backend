@@ -22,8 +22,7 @@ export default function setRecordData(dbPool, recordId, data) {
               console.error( errorMessage );
             }
 
-            console.log(result)
-            // return the new recordId
+            // return true if update ok, or false
             resolve( result.rowCount == 1 )
         });
       }

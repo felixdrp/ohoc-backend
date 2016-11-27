@@ -28,8 +28,7 @@ export default function getRecordData(dbPool, recordId) {
               console.error( errorMessage );
             }
 
-            console.log(result)
-            // return the new recordId
+            // return the recordId data
             resolve( result.rows )
         });
       }
