@@ -5,6 +5,7 @@ var createRecord = require('./create-record').default;
 var getAllRecords = require('./get-all-records').default;
 var getRecordsByType = require('./get-records-by-type').default;
 var getRecordData = require('./get-record-data').default;
+var setRecordData = require('./set-record-data').default;
 
 
 const dbDriver = {
@@ -19,6 +20,9 @@ const dbDriver = {
 
   // Get record by recordId
   getRecordData: async (recordId) => await getRecordData(dbPool, recordId),
+
+  // Set record by recordId
+  setRecordData: async (recordId, data) => await setRecordData(dbPool, recordId, data),
 
   // Create a record. return the new recordId
   createRecord: async (data) => await createRecord(dbPool, data),

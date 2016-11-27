@@ -44,16 +44,6 @@ app.route('/api/getRecordsByType/:type')
     res.end( JSON.stringify({recordsByType}) );
   })
 
-// Get record by recordId
-// curl -v -X GET http://localhost:3001/api/getRecord/24
-app.route('/api/getRecord/:recordId')
-  .get( async (req, res) => {
-    // console.log(req)
-    let recordById = await dbDriver.getRecordData(req.params.recordId)
-
-    res.writeHead(200, {'content-type': 'application/json'});
-    res.end( JSON.stringify({recordById}) );
-  })
 
 // Get the template list
 // curl -v -X GET http://localhost:3001/api/templates/list
@@ -103,15 +93,45 @@ app.route('/api/record/create')
   //   );
   // })
 
-// curl -v -X GET http://localhost:3001/api/templates/list
 
-
-app.route('/api/templates/list')
+// Get record by recordId
+// curl -v -X GET http://localhost:3001/api/getRecord/24
+app.route('/api/getRecord/:recordId')
   .get( async (req, res) => {
-    let templateList = await dbDriver.templateList()
+    // console.log(req)
+    let recordById = await dbDriver.getRecordData(req.params.recordId)
 
     res.writeHead(200, {'content-type': 'application/json'});
-    res.end( JSON.stringify({templateList}) );
+    res.end( JSON.stringify({recordById}) );
+  })
+
+// Set record by recordId
+// curl -v -H "Content-Type: application/json" -X POST -d '{"username":"xyz","password":"xyz"}' http://localhost:3001/api/setRecord/21
+app.route('/api/setRecord/:recordId')
+  .post( async (req, res) => {
+    if (
+      !req.body &&
+      typeof req.params.recordId != 'number' &&
+      (!(
+        'id' in req.body &&
+        'data' in req.body
+      ))
+    ) {
+      return
+    }
+
+    const data = JSON.stringify(req.body)
+    let result
+
+    try {
+      result = await dbDriver.setRecordData(req.params.recordId, data)
+    } catch (error) {
+      console.error('Set record: ' + error)
+    }
+
+    // Returns {"updated": true/false}
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({updated: result}) );
   })
 
 app.route('/api/record/upload/:recordId')
