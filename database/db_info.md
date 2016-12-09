@@ -166,3 +166,10 @@ select * from public.data where type='mlk';
 
 select * from templates where structure #>> '{hello,0}' = 'mlk';
 select * from templates where structure->'hello' ?| array['supermlk','mlk']
+
+
+Access to docker and dump the database
+
+sudo docker exec -i -t kentpg /bin/bash
+
+pg_dump --host localhost --port 5432 --username "postgres" --no-password  --format custom --blobs --verbose --file "init_database.dump" "ohoc"
