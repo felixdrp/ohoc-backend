@@ -5,3 +5,7 @@ npm-debug.log
 
 database/data/*
 database/log/*
+
+
+# multimedia upload files
+data/*
