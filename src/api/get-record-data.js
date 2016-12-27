@@ -16,6 +16,7 @@ export default function getRecordData(dbPool, recordId) {
               data, templates
             where
               data.type=templates.type and
+              data.subtype=templates.subtype and
               data.id=$1`,
           [recordId],
           (err, result) => {
