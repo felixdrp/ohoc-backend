@@ -5,6 +5,24 @@ var util = require('util');
 var dbDriver = require('./src/api/db-driver').default;
 var fs = require('fs')
 
+const webTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oral History Of Intellectual Property</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="lib/bundle.js"></script>
+  </body>
+</html>
+`
 
 
 var app = express();
@@ -16,26 +34,7 @@ app.use('/multimedia', express.static('data'))
 
 app.get('/', (req, res) => {
   res.writeHead(200, {'content-type': 'text/html'});
-  res.end(
-    `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Oral History Of Intellectual Property</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
-      </head>
-      <body>
-        <div id="root"></div>
-        <script src="/lib/bundle.js"></script>
-      </body>
-    </html>
-    `
-  );
+  res.end( webTemplate );
 });
 
 // Get the All record list
@@ -209,46 +208,10 @@ app.route('/api/record/upload/:recordId')
 
 app.use(async function(req, res) {
   console.log(req.headers)
-  // if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
-  //   console.log('uploading file')
-  //   // parse a file upload
-  //   try {
-  //     var form = new formidable.IncomingForm();
-  //     form.uploadDir = __dirname + '/data'
-  //     form.keepExtensions = true;
-  //
-  //     form.on('end', (err, fields, files) => {
-  //       res.writeHead(200, {'content-type': 'text/plain'});
-  //       res.write('received upload:\n\n');
-  //       res.end(util.inspect({fields: fields, files: files}));
-  //     })
-  //
-  //     form.on('file', async (name, file) => {
-  //       console.log(name)
-  //       console.log(file)
-  //     })
-  //
-  //     form.parse(req, function(err, fields, files) {
-  //       console.log('parse!!')
-  //       console.log(err)
-  //       console.log(fields)
-  //       console.log(files)
-  //     });
-  //   } catch(error) {
-  //     console.log('ERROR: ' + error)
-  //   }
-  //
-  //   return;
-  // }
-  // show a file upload form
+
   res.writeHead(200, {'content-type': 'text/html'});
-  res.end(
-    '<form action="/api/record/upload/24" enctype="multipart/form-data" method="post">'+
-    '<input type="text" name="title"><br>'+
-    '<input type="file" name="upload" multiple="multiple"><br>'+
-    '<input type="submit" value="Upload">'+
-    '</form>'
-  );
+  res.end( webTemplate );
+
 })
 
 app.listen(3001)
