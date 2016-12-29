@@ -5,6 +5,10 @@ var util = require('util');
 var dbDriver = require('./src/api/db-driver').default;
 var fs = require('fs')
 
+// const urlRoot = process.env.NODE_ENV == 'production'? '/ohoc/'
+const urlRoot = '/ohoc/'
+
+
 const webTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +23,7 @@ const webTemplate = `
   </head>
   <body>
     <div id="root"></div>
-    <script src="lib/bundle.js"></script>
+    <script src="${urlRoot}lib/bundle.js"></script>
   </body>
 </html>
 `
@@ -30,16 +34,16 @@ var app = express();
 app.use(bodyParser.json())
 
 app.use(express.static('public'))
-app.use('/multimedia', express.static('data'))
+app.use(urlRoot+ 'multimedia', express.static('data'))
 
-app.get('/', (req, res) => {
+app.get(urlRoot, (req, res) => {
   res.writeHead(200, {'content-type': 'text/html'});
   res.end( webTemplate );
 });
 
 // Get the All record list
 // curl -v -X GET http://localhost:3001/api/getAllRecords
-app.route('/api/getAllRecords')
+app.route(urlRoot + 'api/getAllRecords')
   .get( async (req, res) => {
     let recordsAllList = await dbDriver.getAllRecords()
 
@@ -49,7 +53,7 @@ app.route('/api/getAllRecords')
 
 // Get the record list by type
 // curl -v -X GET http://localhost:3001/api/getRecordsByType/academia
-app.route('/api/getRecordsByType/:type')
+app.route(urlRoot + 'api/getRecordsByType/:type')
   .get( async (req, res) => {
     // console.log(req)
     let recordsByType = await dbDriver.getRecordsByType(req.params.type)
@@ -61,7 +65,7 @@ app.route('/api/getRecordsByType/:type')
 
 // Get the template list
 // curl -v -X GET http://localhost:3001/api/templates/list
-app.route('/api/templates/list')
+app.route(urlRoot + 'api/templates/list')
   .get( async (req, res) => {
     let templateList = await dbDriver.templateList()
 
@@ -70,7 +74,7 @@ app.route('/api/templates/list')
   })
 
 // Create a new record.
-app.route('/api/record/create')
+app.route(urlRoot + 'api/record/create')
   .put( async (req, res) => {
     if (
       !req.body &&
@@ -110,7 +114,7 @@ app.route('/api/record/create')
 
 // Get record by recordId
 // curl -v -X GET http://localhost:3001/api/getRecord/24
-app.route('/api/getRecord/:recordId')
+app.route(urlRoot + 'api/getRecord/:recordId')
   .get( async (req, res) => {
     // console.log(req)
     let recordById = await dbDriver.getRecordData(req.params.recordId)
@@ -121,7 +125,7 @@ app.route('/api/getRecord/:recordId')
 
 // Set record by recordId
 // curl -v -H "Content-Type: application/json" -X POST -d '{"username":"xyz","password":"xyz"}' http://localhost:3001/api/setRecord/21
-app.route('/api/setRecord/:recordId')
+app.route(urlRoot + 'api/setRecord/:recordId')
   .post( async (req, res) => {
     if (
       !req.body &&
@@ -148,7 +152,7 @@ app.route('/api/setRecord/:recordId')
     res.end( JSON.stringify({updated: result}) );
   })
 
-app.route('/api/record/upload/:recordId')
+app.route(urlRoot + 'api/record/upload/:recordId')
   .post(async (req, res) => {
     try {
       var form = new formidable.IncomingForm();
