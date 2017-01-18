@@ -33,8 +33,8 @@ var app = express();
 
 app.use(bodyParser.json())
 
-app.use(express.static('public'))
-app.use(urlRoot+ 'multimedia', express.static('data'))
+app.use(urlRoot, express.static('public'))
+app.use(urlRoot + 'multimedia', express.static('data'))
 
 app.get(urlRoot, (req, res) => {
   res.writeHead(200, {'content-type': 'text/html'});

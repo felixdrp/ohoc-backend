@@ -169,7 +169,15 @@ select * from templates where structure->'hello' ?| array['supermlk','mlk']
 
 
 Access to docker and dump the database
-
+=======================================
 sudo docker exec -i -t kentpg /bin/bash
 
 pg_dump --host localhost --port 5432 --username "postgres" --no-password  --format custom --blobs --verbose --file "init_database.dump" "ohoc"
+
+Backup and Restore database
+================
+[Backup and restore DB](http://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)
+
+docker exec -t your-db-container pg_dumpall -c -U postgres > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+
+cat your_dump.sql | docker exec -i your-db-container psql -U postgres
