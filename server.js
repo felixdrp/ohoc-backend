@@ -152,6 +152,25 @@ app.route(urlRoot + 'api/setRecord/:recordId')
     res.end( JSON.stringify({updated: result}) );
   })
 
+// Delete record by recordId
+// curl -v -X POST http://localhost:3001/api/deleteRecord/47
+app.route(urlRoot + 'api/deleteRecord/:recordId')
+  .post( async (req, res) => {
+    console.log(req)
+
+    let deleteRecord
+    try {
+      deleteRecord = await dbDriver.deleteRecord(req.params.recordId)
+    } catch (error) {
+      console.error('Delete record: ' + error)
+      deleteRecord = false
+    }
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({deletedRecord: deleteRecord}) );
+  })
+
+// Upload a file to a record.
 app.route(urlRoot + 'api/record/upload/:recordId')
   .post(async (req, res) => {
     try {

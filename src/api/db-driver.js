@@ -6,6 +6,7 @@ var getAllRecords = require('./get-all-records').default;
 var getRecordsByType = require('./get-records-by-type').default;
 var getRecordData = require('./get-record-data').default;
 var setRecordData = require('./set-record-data').default;
+var deleteRecord = require('./delete-record').default;
 
 
 const dbDriver = {
@@ -26,6 +27,9 @@ const dbDriver = {
 
   // Create a record. return the new recordId
   createRecord: async (data) => await createRecord(dbPool, data),
+
+  // Delete a record
+  deleteRecord: async (recordId) => await deleteRecord(dbPool, recordId),
 }
 
 export default dbDriver
