@@ -6,9 +6,9 @@ var dbDriver = require('./src/api/db-driver').default;
 var fs = require('fs')
 
 // const urlRoot = process.env.NODE_ENV == 'production'? '/ohoc/'
-// const urlRoot = '/ohoc/'
 const urlRoot = '/'
 
+const promisesLibrary = '<script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>'
 
 const webTemplate = `
 <!DOCTYPE html>
@@ -18,6 +18,9 @@ const webTemplate = `
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Oral History Of Intellectual Property</title>
+    <!--[if IE ]>
+        ${promisesLibrary}
+    <![endif]-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
@@ -233,7 +236,7 @@ app.route(urlRoot + 'api/record/upload/:recordId')
 
 app.use(async function(req, res) {
   console.log(req.headers)
-
+  
   res.writeHead(200, {'content-type': 'text/html'});
   res.end( webTemplate );
 
