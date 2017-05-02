@@ -6,7 +6,8 @@ var dbDriver = require('./src/api/db-driver').default;
 var fs = require('fs')
 
 // const urlRoot = process.env.NODE_ENV == 'production'? '/ohoc/'
-const urlRoot = '/ohoc/'
+// const urlRoot = '/ohoc/'
+const urlRoot = '/'
 
 
 const webTemplate = `
@@ -68,7 +69,8 @@ app.route(urlRoot + 'api/getRecordsByType/:type')
 app.route(urlRoot + 'api/templates/list')
   .get( async (req, res) => {
     let templateList = await dbDriver.templateList()
-
+    console.log('templateList')
+    console.log(templateList)
     res.writeHead(200, {'content-type': 'application/json'});
     res.end( JSON.stringify({templateList}) );
   })
