@@ -24,10 +24,17 @@ const webTemplate = `
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+    <style>
+      body {
+        margin: 0;
+        height: 100%;
+        background-color:#f2f2f2;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <script src="${urlRoot}lib/bundle.js"></script>
+    <script src="${urlRoot}lib/bundle.min.js"></script>
   </body>
 </html>
 `
@@ -236,7 +243,7 @@ app.route(urlRoot + 'api/record/upload/:recordId')
 
 app.use(async function(req, res) {
   console.log(req.headers)
-  
+
   res.writeHead(200, {'content-type': 'text/html'});
   res.end( webTemplate );
 
