@@ -240,6 +240,49 @@ app.route(urlRoot + 'api/record/upload/:recordId')
     }
   })
 
+// Set record by recordId
+// curl -v -H "Content-Type: application/json" -X POST -d '{"username":"xyz","password":"xyz"}' http://localhost:3001/api/category/paragraphUpdate/
+app.route(urlRoot + 'api/category/paragraphUpdate/:template/:subtemplate')
+  .post( async (req, res) => {
+
+    if (
+      !req.body &&
+      typeof req.params.template != 'number' &&
+      (!(
+        'id' in req.body &&
+        'data' in req.body
+      ))
+    ) {
+      return
+    }
+
+    const data = JSON.stringify(req.body)
+    let result
+
+    try {
+      console.log(JSON.stringify(req.params))
+      result = await dbDriver.updateParagraph(req.params.template, req.params.subtemplate, data)
+    } catch (error) {
+      console.error('Set record: ' + error)
+    }
+
+    // Returns {"updated": true/false}
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify({updated: result}) );
+  })
+
+
+// Get paragraph by type and subtype
+// curl -v -X GET http://localhost:3001/api/getParagraph/
+app.route(urlRoot + 'api/category/getParagraph/:template/:subtemplate')
+  .get( async (req, res) => {
+    console.log(req)
+    let paragraph = await dbDriver.getParagraph(req.params.template, req.params.subtemplate)
+
+    res.writeHead(200, {'content-type': 'application/json'});
+    res.end( JSON.stringify(paragraph[0]) );
+  })
+
 
 app.use(async function(req, res) {
   console.log(req.headers)

@@ -7,7 +7,8 @@ var getRecordsByType = require('./get-records-by-type').default;
 var getRecordData = require('./get-record-data').default;
 var setRecordData = require('./set-record-data').default;
 var deleteRecord = require('./delete-record').default;
-
+var updateParagraph = require('./update-paragraph').default;
+var getParagraph = require('./get-paragraph').default;
 
 const dbDriver = {
   // get the template list. return the template list
@@ -30,6 +31,12 @@ const dbDriver = {
 
   // Delete a record
   deleteRecord: async (recordId) => await deleteRecord(dbPool, recordId),
+
+  // Update Paragraph
+  updateParagraph: async (type, subtype, paragraph) => await updateParagraph(dbPool, type, subtype, paragraph),
+
+  // Get Paragraph
+  getParagraph:  async (type, subtype) => await getParagraph(dbPool, type, subtype)
 }
 
 export default dbDriver
